@@ -60,8 +60,8 @@
  引用作为函数重载：可以用常量引用做区分
  
  ```
- void test1(int &a) {cout << 1;}
- void test1(const int &a) {cout << 2;}//可以发生重载
+ void test(int &a) {cout << 1;}
+ void test(const int &a) {cout << 2;}//可以发生重载
  
  int main(){
      int a=10;
@@ -72,7 +72,19 @@
  ```
  
  重载与默认参数：
-      
+ ```
+ void test(int a,int b=10){
+     cout << 1 << endl;
+ }
+ void test(inta){
+     cout << 2 << endl;
+ }
+ int main(){
+     int a=10;
+     test(a);//产生了二义性，程序员应该避免这种情况
+     ...
+ }
+ ```
       
   
   
