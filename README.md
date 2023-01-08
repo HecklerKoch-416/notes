@@ -121,7 +121,13 @@
          cout << "身份证号:" << s_id << endl;
      }
      Student(){//构造函数，程序在调用对象时自动调用构造函数，有且只有一次。函数名为类名。
-     
+         cout << "无参构造" << endl;
+     }
+     Student(int name,int age,int uid,int score,int id){
+         cout << "有参构造" << endl;
+     }
+     Student(const Student &s){//拷贝构造。const是防止作为参数对象被修改。为什么要引用？ 值传参会导致实例化，形成递归而无限循环。
+         cout << "有参构造" << endl;
      }
      ~Student(){//析构函数，程序在对象销毁前自动调用析构函数，有且只有一次
      
@@ -136,8 +142,6 @@
  showMessage();//可以访问
  showScore();//不能访问
  showId();//不能访问
+ Student s2(s1);//拷贝构造
  ```
-  
-  
-
-  
+ 构造函数的分类：1.按参数分为有参构造和无参构造。2.普通构造和拷贝构造。
