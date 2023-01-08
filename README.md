@@ -165,4 +165,13 @@
  Student s2 = s1;//等价于Student s2 = Student(s1);
  ```
  
- 
+ 拷贝构造函数的调用时机:
+ (1)用创建完毕的对象初始化新对象`Student s2 = Student(s1);` 
+ (2)值传递传参`void test(Student s) {}` 注意，这个参数s是临时副本(匿名对象)，不会影响调用语句`test(s1)`中s1的值。
+ (3)返回局部对象的值
+ ```
+ void test(){
+     Student s1;
+     return s1;//返回时调用拷贝构造函数
+ }
+ ```
