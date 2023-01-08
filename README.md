@@ -94,13 +94,18 @@
  
  ```
  class Student{
- public:
+ public://公共访问权限，均可访问。
      string s_name;
      unsigned int s_age;
      int s_id;
      void showMessage{
          cout << "姓名:" << s_name << "  年龄:" << s_age << "  学号：" << s_id << endl;
      }
+ protected://保护访问权限，类内可以访问，类外不可以访问。
+     int s_score;
+     
+ private://私有权限，
+     
  };
  ```
   
