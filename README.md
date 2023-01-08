@@ -89,7 +89,18 @@
  3.类和对象
  
  C++面向对象三大特性：封装、继承、多态
-      
+ 
+ ```
+ class Student{
+ public:
+     string s_name;
+     unsigned int s_age;
+     int s_id;
+     void showMessage{
+         cout << "姓名:" << s_name << "  年龄:" << s_age << "  学号：" << s_id << endl;
+     }
+ };
+ ```
   
   
 
