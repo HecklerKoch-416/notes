@@ -92,21 +92,33 @@
  
  封装：将属性和行为作为整体；权限控制。
  
+ class与struct区别：默认访问权限不同，class默认是私有权限,struct默认是公共权限。
+ 
  ```
  class Student{
  public://公共访问权限，均可访问。
      string s_name;
      unsigned int s_age;
-     int s_id;
-     void showMessage{
-         cout << "姓名:" << s_name << "  年龄:" << s_age << "  学号：" << s_id << endl;
+     int s_uid;
+     void showMessage(){
+         cout << "姓名:" << s_name << "  年龄:" << s_age << "  学号：" << s_uid << endl;
      }
- protected://保护访问权限，类内可以访问，类外不可以访问。
+ protected://保护访问权限，类内可以访问，类外不可以访问，子类继承后可以访问。
      int s_score;
-     
- private://私有权限，
-     
+     void showScore(){
+         cout << "成绩：" << s_score << endl;
+     }
+ private://私有权限，类内可以访问，类外不可以访问，子类继承后不可访问。
+     int s_id;
+     void showId(){
+         cout << "身份证号:" << s_id << endl;
+     }
  };
+ 
+ Student s1;
+ showMessage();//可以访问
+ showScore();//不能访问
+ showId();//不能访问
  ```
   
   
