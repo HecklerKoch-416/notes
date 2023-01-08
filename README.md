@@ -94,6 +94,11 @@
  
  class与struct区别：默认访问权限不同，class默认是私有权限,struct默认是公共权限。
  
+ 成员属性私有化的作用：1.控制读写权限；2.在写时可以检测数据有效性。//只能由成员函数修改私有属性
+ 
+ 构造函数与析构函数：构造函数负责初始化，析构函数负责清理。如果没有手动定义，编译器会自动生成构造函数和析构函数。
+ 构造函数和析构函数由编译器调用，不能由用户调用。
+ 
  ```
  class Student{
  public://公共访问权限，均可访问。
@@ -103,16 +108,22 @@
      void showMessage(){
          cout << "姓名:" << s_name << "  年龄:" << s_age << "  学号：" << s_uid << endl;
      }
- protected://保护访问权限，类内可以访问，类外不可以访问，子类继承后可以访问。
-     int s_score;
+     void changeScore(int score){//如何访问保护权限的s_score? 利用公有的函数修改。这里提供了s_score的读接口
+         this->s_score = score;    //this指针指向该类实例化的对象
+     }
      void showScore(){
          cout << "成绩：" << s_score << endl;
      }
- private://私有权限，类内可以访问，类外不可以访问，子类继承后不可访问。
-     int s_id;
+     void changeId(int id){
+         this->s_id=id;
+     }
      void showId(){
          cout << "身份证号:" << s_id << endl;
      }
+ protected://保护访问权限，类内可以访问，类外不可以访问，子类继承后可以访问。
+     int s_score;
+ private://私有权限，类内可以访问，类外不可以访问，子类继承后不可访问。
+     int s_id;
  };
  
  Student s1;
