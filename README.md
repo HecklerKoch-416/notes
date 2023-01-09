@@ -199,7 +199,7 @@
      ...
      //s_height=s.s_height; 浅拷贝
      s_height=new int(*s.s_height);//深拷贝，重新分配内存
- }
+ };
  ```
  
  ### 初始化列表
@@ -220,7 +220,7 @@
      int a;
      int b;
      A(int a1,int b1): a(a1),b(b1){cout << 'a' << endl;}
- }
+ };
  
  class B{
  public:
@@ -228,7 +228,7 @@
      int b;
      A c;
      B(int a1,int b1,const A &c1): a(a1), b(b1), c(c1){cout << 'b' << endl;}
- }
+ };
  B x;//当构造B的对象时，会先调用A的构造函数，再调用B的。
  //输出：a b
  ```
@@ -253,7 +253,7 @@
          cout << a << endl;
          b=100;//报错，不能访问非静态成员变量
      }
- }
+ };
  //静态成员变量的两种访问方式
  A x;
  x.a;//通过对象访问
@@ -272,7 +272,7 @@
      int x;
      static int y;
      void test(){}
- }
+ };
  A a;
  //sizeof(a)大小计算：4
  /* 空类对象的大小至少是1。
@@ -299,7 +299,7 @@ this指针指向被调用的成员函数所属对象，本质上是指针常量�
          this->x=a.x;
          return *this;
      }
- }
+ };
 ```
 
 ### 空指针访问成员函数
@@ -312,7 +312,7 @@ this指针指向被调用的成员函数所属对象，本质上是指针常量�
          cout << x << endl;
      }
      void nothing(){}
- }
+ };
  test(){
      A *a = NNLL;
      a->showX();//报错，showX()访问了x，实际为this->x，此处this是空指针。
@@ -335,7 +335,7 @@ class A{
          y=10;//报错，这里的const修饰this，将A* const this修改为const A* const this
          z=10;//不报错。mutable声明可以使常函数、常对象中属性仍可修改。
      }
- }
+ };
  //常对象只能调用常函数
  int main(){
      const A a;
@@ -368,7 +368,7 @@ class A{
      }
  private:
      int y;
- }
+ };
  
  class B{
  public:
@@ -376,14 +376,14 @@ class A{
      void visit(){
          cout << a.y << endl;//可以访问A类私有成员
      }
- }
+ };
  
  class C{
  public:
      void visit{
          cout << a.y << endl;//可以访问A类私有成员
      }
- }
+ };
  
  int main(){
      A a1;
@@ -391,3 +391,129 @@ class A{
  }
 ```
 
+## 运算符重载
+
+可以通过成员函数或全局函数实现重载。
+```
+/*
+A operator+(A &a1,A &a2){
+     A temp;
+     temp.x = a2.x + a1.x;
+     temp.y = a2.y + a1.y;
+     return temp;
+}
+*/
+//只能用全局函数重载左移运算符,实现自定义输出类型
+ostream& operator<<(ostream &cout,A &a){
+    cout << a.x << endl << a.y << endl;
+    return cout;//满足链式编程
+}
+class A{
+friend ostream& operator<<(ostream &cout,A &a);
+public:
+    int x;
+    int y;
+    A operator+(A &a1){
+        A temp;
+        temp.x = this->x + a1.x;
+        temp.y = this->y + a1.y;
+        return temp;
+    }
+    //运算符重载也可以发生函数重载
+    A operator+(int n){
+        A temp;
+        temp.x = this->x + n;
+        temp.y = this->y + n;
+        return temp;
+    }
+   
+};
+void test(){
+    A a1,a2,a3;
+    a1.x=1;
+    a1.y=2;
+    a2.x=1;
+    a2.y=2;
+    a3=a1+a2;
+    //成员函数重载本质上是 a3 = a1.operator+(a2);
+    //全局函数重载本质上是 a3 = operator+(a1,a2);
+    cout << a1;//打印1 2
+}
+```
+
+## 继承
+
+```
+class base{
+public:
+    int a;
+protected:
+    int b;
+private:
+    int c;//父类的私有属性，子类无论如何都不能访问
+};
+
+class A : public base{//公有继承，父类的公有和保护保持不变
+public:
+    void test(){
+        cout << a << endl;
+        cout << b << endl;
+        //cout << c << endl;//不可访问
+    }
+protected:
+
+private:
+};
+
+class B : protected base{//保护继承，父类的公有和保护均变为保护
+public:
+    void test(){
+        cout << a << endl;
+        cout << b << endl;
+        //cout << c << endl;//不可访问
+    }
+};
+
+class C : private base{//私有继承，父类的公有和保护均变为私有
+public:
+    void test(){
+        cout << a << endl;
+        cout << b << endl;
+        //cout << c << endl;//不可访问
+    }
+};
+
+void test01(){
+    A.a=10;
+    A.b=10;//保护权限,不可访问
+    A.c=10;//私有权限,不可访问
+    B.a=10;//保护权限,不可访问
+    B.b=10;//保护权限,不可访问
+    B.c=10;//私有权限,不可访问
+    C.a=10;//私有权限,不可访问
+    C.b=10;//私有权限,不可访问
+    C.c=10;//私有权限,不可访问
+}
+```
+
+# 继承中的sizeof()问题
+```
+class base{
+public:
+    int a;
+protected:
+    int b;
+private:
+    int c;
+};
+
+class A : public base{
+public:
+    int d;
+};
+
+void test(){
+    A a;
+    cout << sizeof() << endl;//输出16，子类继承父类所有非静态成员属性(包括私有)
+}
+```
