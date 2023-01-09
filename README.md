@@ -105,6 +105,7 @@
      string s_name;
      unsigned int s_age;
      int s_uid;
+     int *s_height;
      void showMessage(){
          cout << "姓名:" << s_name << "  年龄:" << s_age << "  学号：" << s_uid << endl;
      }
@@ -129,6 +130,7 @@
      Student(const Student &s){//拷贝构造。const是防止作为参数对象被修改。为什么要引用？ 值传参会导致实例化，形成递归而无限循环。
          cout << "有参构造" << endl;
      }
+     
      ~Student(){//析构函数，程序在对象销毁前自动调用析构函数，有且只有一次
      
      }
@@ -174,5 +176,22 @@
  void test(){
      Student s1;
      return s1;//返回时调用拷贝构造函数
+ }
+ ```
+ 
+ 编译器默认添加的函数：默认无参构造函数，默认析构函数，默认拷贝构造函数。如果定义了有参构造函数，就不提供无参构造函数，如果定义了拷贝构造，就不提供默认拷贝。
+ 
+ 深拷贝与浅拷贝：
+ 
+ 浅拷贝：简单赋值拷贝操作。(编译器的默认拷贝函数)  浅拷贝的问题：堆区重复操作。
+ 
+ 深拷贝：在堆区重新申请空间。
+ ```
+ Student(const Student &s){
+     s_age=s.s_age;
+     s_name=s.s_name;
+     ...
+     //s_height=s.s_height; 浅拷贝
+     s_height=new int(*s.s_height);//深拷贝，重新分配内存
  }
  ```
