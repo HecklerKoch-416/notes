@@ -354,15 +354,16 @@ void test(A* a){//全局函数
     cout << a.x << endl;
     cout << a.y << endl;
 }
-
+class B;//先声明防止报错
+class C;
 class A{
     friend void test(A* a);//声明为友元,s使得该函数可以访问私有成员
+    friend class B;//友元类
+    friend void C::visit();//成员函数作友元
  public:
      int x;
-     void initx(){
+     A(){
          x=1;
-     }
-     void inity(){
          y=2;
      }
  private:
@@ -371,10 +372,17 @@ class A{
  
  class B{
  public:
+     A a;
      void visit(){
-     
+         cout << a.y << endl;//可以访问A类私有成员
      }
-     
+ }
+ 
+ class C{
+ public:
+     void visit{
+         cout << a.y << endl;//可以访问A类私有成员
+     }
  }
  
  int main(){
