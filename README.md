@@ -185,7 +185,7 @@
  
  浅拷贝：简单赋值拷贝操作。(编译器的默认拷贝函数)  浅拷贝的问题：堆区重复操作。
  
- 深拷贝：在堆区重新申请空间。
+ 深拷贝：在堆区重新申请空间。 如果属性中有在堆区开辟的操作(手动分配内存)，就要用深拷贝。
  ```
  Student(const Student &s){
      s_age=s.s_age;
@@ -195,3 +195,33 @@
      s_height=new int(*s.s_height);//深拷贝，重新分配内存
  }
  ```
+ 
+ 初始化列表：
+ ```
+ Student(): s_name(123),s_age(18),s_uid(1234556){//构造函数名: 属性1(值1)，属性2(值2)...{函数体}
+ 
+ }
+ //更灵活的操作
+ Student(int name,int age,int uid):s_name(name),s_age(age),s_uid(uid){}
+ ```
+ 
+ 类对象作为类成员：一个类的对象可以作为另一个类的成员。
+ ```
+ class A{
+ public:
+     int a;
+     int b;
+     A(int a1,int b1): a(a1),b(b1){cout << 'a' << endl;}
+ }
+ 
+ class B{
+ public:
+     int a;
+     int b;
+     A c;
+     B(int a1,int b1,const A &c1): a(a1), b(b1), c(c1){cout << 'b' << endl;}
+ }
+ B x;//当构造B的对象时，会先调用A的构造函数，再调用B的。
+ //输出：a b
+ ```
+ 
