@@ -442,8 +442,8 @@ void test(){
 }
 ```
 
-# 继承
-## 继承权限
+## 继承
+### 继承权限
 
 ```
 class base{
@@ -498,7 +498,7 @@ void test01(){
 }
 ```
 
-# 继承中的sizeof()问题
+### 继承中的sizeof()问题
 ```
 class base{
 public:
@@ -520,7 +520,7 @@ void test(){
 }
 ```
 
-# 继承中的构造和析构顺序
+### 继承中的构造和析构顺序
 ```
 class base{
 public:
@@ -548,7 +548,7 @@ void test(){
 }
 ```
 
-# 继承同名成员处理方式
+### 继承同名成员处理方式
 
 子类与父类有同名成员时，隐藏父类成员。子类成员直接访问，父类成员加作用域访问。静态成员也一样。
 ```
@@ -592,3 +592,90 @@ void test(){
 }
 ```
 
+### 多继承
+```
+class Base1{
+public:
+    int a;
+    int b;
+    Base1(){
+        a=1;
+    }
+};
+class Base2{
+public:
+    int a;
+    int c;
+    Base2(){
+        a=2;
+    }
+};
+class Son : public Base1,public Base2{
+public:
+    int e;
+};
+void test(){
+    Son s;
+    cout << sizeof(s) << endl;//打印20
+    cout << s.a << endl;//报错，产生二义性
+    cout << s.Base1::a << endl;//打印1  加作用域区分同名
+}
+```
+
+### 菱形继承问题
+
+菱形继承时，若两个父类有同名成员，必须加作用域区分。
+
+菱形继承导继承了两份相同资源，造成了浪费。
+
+利用虚继承可以解决菱形继承问题。
+```
+class Base{
+public:
+    int a;
+};
+class A : public Base{
+    
+};
+class B : public Base{
+
+};
+class C : public A,public B{
+
+};
+void test(){
+    C c;
+    c.a = 10;//报错，不明确
+    c.A::a = 10;
+    c.B::a = 20;
+    cout << c.A::a << endl;//10
+    cout << c.B::a << endl;//20
+}
+```
+
+### 虚继承
+```
+class Base{
+public:
+    int a;
+};
+class A : virtual public Base{
+    //A中有虚基类指针，指向虚基类表，虚基类表中存放了数据的偏移量,指针指向的地址加偏移量就得到数据地址
+};
+class B : virtual public Base{
+    
+};
+class C : public A,public B{
+
+};
+void test(){
+    C c;
+    c.a = 10;//不再报错,C类中只有一分数据
+    c.A::a = 10;
+    c.B::a = 20;
+    cout << c.A::a << endl;//20
+    cout << c.B::a << endl;//20
+}
+```
+
+## 多态
