@@ -441,7 +441,8 @@ void test(){
 }
 ```
 
-## 继承
+# 继承
+## 继承权限
 
 ```
 class base{
@@ -515,5 +516,33 @@ public:
 void test(){
     A a;
     cout << sizeof() << endl;//输出16，子类继承父类所有非静态成员属性(包括私有)
+}
+```
+
+# 继承中的构造和析构顺序
+```
+class base{
+public:
+    base(){
+        cout << "base构造" << endl;
+    }
+    ~base(){
+        cout << "base析构" << endl;
+    }
+};
+
+class A : public base{
+public:
+    A(){
+        cout << "A构造" << endl;
+    }
+    ~A(){
+        cout << "A析构" << endl;
+    }
+};
+
+void test(){
+    A a;//输出内容:base构造 A构造 A析构 base析构
+    
 }
 ```
