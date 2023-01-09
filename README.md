@@ -254,6 +254,7 @@
          b=100;//报错，不能访问非静态成员变量
      }
  };
+ int A::a = 1;//类外初始化
  //静态成员变量的两种访问方式
  A x;
  x.a;//通过对象访问
@@ -546,3 +547,48 @@ void test(){
     
 }
 ```
+
+# 继承同名成员处理方式
+
+子类与父类有同名成员时，隐藏父类成员。子类成员直接访问，父类成员加作用域访问。静态成员也一样。
+```
+class base{
+public:
+    int x;
+    static int y;
+    void func(){
+        cout << "base" << endl;
+    }
+    base(){
+        x=1;
+    }
+};
+class A : public base{
+public:
+    int x;
+    static int y;
+    void func(){
+        cout << "A" << endl;
+    }
+    A(){
+        x=2;
+    }
+};
+int base::y = 1;
+int A::y = 2;
+void test(){
+    A a;
+    cout << a.x << endl;//输出2 可以直接访问子类同名成员
+    cout << a.base::x << endl;//输出1  加作用域，即可通过子类对象访问父类同名成员
+    a.func();//打印A  直接调用，调用的是子类同名成员函数
+    a.base::func();//打印base  同上
+    //静态成员通过对象访问，同上
+    cout << a.y << endl;//输出2
+    cout << a.base::y << endl;//输出1
+    //静态成员通过类名访问
+    cout << A::y << endl;//输出2
+    cout << A::base::y << endl;//输出1  第一个::表示通过类名访问，第二个::表示父类作用域
+    cout << base::y << endl;//输出1
+}
+```
+
