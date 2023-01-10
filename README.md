@@ -856,3 +856,27 @@ int main(){
  }
  ```
 3.fstream：读写操作(略)
+
+# 模板
+ 作用：提高复用性。将类型参数化。
+ 
+ ```
+ template<typename T>//声明一个模板，T是通用数据类型
+ void mySwap(T &a,T &b){
+     T temp = a;
+     a = b;
+     b = temp;
+ }
+ 
+ int main(){
+     //模板使用方法
+     int a = 1;
+     int b = 2;
+     mySwap(a,b);//编译器自动推导
+     mySwap<int>(a,b);//显式指定类型
+     return 0;
+ }
+ 
+ ```
+ 
+ 注意事项：1.自动类型推导必须推导出一样的数据类型。2.模板必须确定T的数据类型。
