@@ -880,3 +880,84 @@ int main(){
  ```
  
  注意事项：1.自动类型推导必须推导出一样的数据类型。2.模板必须确定T的数据类型。
+ ```
+ template<class T>
+ void mySwap(T &a,T &b){
+     T temp = a;
+     a = b;
+     b = temp;
+ }
+ template<class T>
+ void test(){
+     cout << "test" << endl;
+ }
+ int main(){
+     int a = 1;
+     char b = 'a';
+     mySwap(a,b);//错误，无法推导T类型
+     test();//错误，无法确定T的数据类型，必须显式调用
+     test<int>();//正确
+     return 0;
+ }
+ ```
+ ### 普通函数与函数模板的区别：能否发生隐式类型转换。
+ 
+ 1.普通函数可以发生隐式类型转换。
+ 
+ 2.函数模板采用自动类型推导，不能发生隐式类型转换。
+ 
+ 3.函数模板采用显式类型，可以发生隐式类型转换。
+ ```
+ template<class T>
+ void mySwap(T &a,T &b){
+     T temp = a;
+     a = b;
+     b = temp;
+ }
+  int main(){
+     int a = 1;
+     char b = 'a';
+     mySwap<int>(a,b);//发生隐式类型转换，'a'转换为97
+     return 0;
+ }
+ ```
+ 
+ ### 调用规则
+ 
+ 1.普通函数和函数模板都可以调用时，优先普通函数。
+ 
+ 2.空模板参数列表强制调用函数模板。
+ 
+ 3.函数模板可以重载。
+ 
+ 4.如果函数模板可以产生更好的匹配，优先调用函数模板。
+ 
+ ```
+ void test(int a,int b){
+     cout << "普通函数" << endl;
+ }
+ template<class T>
+ void test(T a,T b){//发生重载
+     cout << "函数模板" << endl;
+ }
+ template<class T>
+ void test(T a,T b,T c){//发生重载
+     cout << "函数模板重载" << endl;
+ }
+  int main(){
+     int a = 1;
+     int b = 2;
+     test(a,b);//调用普通函数  假如普通函数只有声明，这里不会调用模板，而是报错。想调用模板，要使用空模板参数列表。
+     test<>(a,b);//强制调用函数模板
+     test(a,b,100);//调用重载函数模板
+     char x = 'a';
+     char y = 'b';
+     test(a,b);//调用函数模板  更好的匹配
+     return 0;
+ }
+ ```
+ 
+ 模板的局限性：不万能，对某些特殊的类型不通用，需要对特定数据类型提供具体操作。
+ ```
+ 
+ ```
