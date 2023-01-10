@@ -679,3 +679,55 @@ void test(){
 ```
 
 ## 多态
+多态分为静态多态和动态多态
+
+静态多态：函数重载和运算符重载。 静态多态在编译阶段确定函数地址。
+
+动态多态：派生类和虚函数实现运行时多态。 动态多态在运行阶段确定函数地址。
+```
+class Base{
+public:
+    void func(){
+        cout << "Base" << endl;
+    }
+    virtual void func01(){
+        cout << "Base" << endl;
+    }
+};
+class A : public Base{
+    void func(){
+        cout << "A" << endl;
+    }
+    void func01*({
+        cout << "A" << endl;
+    }
+};
+void test01(Base &base){
+    base.func();
+}
+void test02(){
+    A a;
+    test01(a);//C++允许父子之间的类型转换，这里自动将子类对象转换为父类对象
+}
+void test03{
+    base.func01();
+}
+void test04(){
+    A a;
+    test03(a);
+}
+int main(){
+    test02();//打印base 原因：因为函数地址在编译阶段绑定
+    test04();//打印A    原因：因为函数地址在运行阶段绑定
+    Base base;
+    cout << sizeof(base) << endl;//打印4 ，4个字节表示指针，即虚函数指针
+    return 0;
+}
+```
+动态多态条件:1.存在继承关系。2.子类重写父类虚函数(子类中virtual可写可不写，函数参数必须完全一致)。
+
+动态多态使用:父类的指针或引用指向子类对象。
+
+动态多态原理:子类重写父类虚函数时，子类的虚函数表中，子类函数地址覆盖父类函数地址。
+
+多态的优点：1.代码组织结构清晰。2.可读性强。3.利于扩展维护。
