@@ -807,3 +807,54 @@ int main(){
     return 0;
 }
 ```
+
+# 文件操作
+头文件<fstream>
+
+三大类：
+
+1.ofstream：写操作
+ ```
+ #include <fstream>
+ 
+ ofstream ofs;//创建对象
+ 
+ ofs.open("path",mod);//ios::in 读打开 ios::out 写打开 ios::binary 二进制方式 ios::app 追加写 
+ //例：ofs.open("path",ios::in | ios::binary);//以二进制写打开
+ 
+ ofs.is_open();//成功返回1
+ 
+ ofs << "写入";
+ 
+ ofs.close();
+ ```
+
+2.ifstream：读操作
+ 
+ 四种读取方式
+ ```
+ //前三种按行读，第四种按字符读
+ //1.
+ char buf[1024]={0};
+ while(ifs >> buf){
+     cout << buf << endl;
+ }
+ //2.
+ char buf[1024]={0};
+ while(ifs.getline(buf,sizeof(buf))){
+     cout << buf << endl;
+ }
+ //3.
+ string buf;
+ while(getline(ifs,buf)){
+     cout << buf << endl;
+ }
+ //4. (不推荐)
+ char c;
+ while((c=ifs.get())!=EOF){
+     cout << c << endl;
+ }
+ ```
+3.fstream：读写操作(略)
+ 
+ 
