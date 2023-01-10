@@ -695,6 +695,7 @@ public:
     }
 };
 class A : public Base{
+public:
     void func(){
         cout << "A" << endl;
     }
@@ -731,3 +732,78 @@ int main(){
 动态多态原理:子类重写父类虚函数时，子类的虚函数表中，子类函数地址覆盖父类函数地址。
 
 多态的优点：1.代码组织结构清晰。2.可读性强。3.利于扩展维护。
+
+## 纯虚函数和抽象类
+有纯虚函数的类是抽象类
+
+抽象类特点:1.无法实例化对象。2.子类必须重写父类中纯虚函数，否则也是抽象类。
+```
+class Base{
+public:
+    virtual void func() = 0;//纯虚函数
+};
+class A : public Base{
+public:
+    void func(){
+        cout << "A" << endl;
+    }
+};
+int main(){
+    Base *base = new A;//父类的指针或引用指向子类接口，实现调用
+    base->func();//打印A
+    return 0;
+}
+```
+## 虚析构和纯虚析构
+使用多态时，如果子类有属性开辟到堆区，则父类指针无法调用子类的析构代码。
+
+解决方法：将父类的析构函数改为虚析构或纯虚析构。
+
+虚析构和纯虚析构共性：可以解决父类指针释放子类对象问题；要有具体函数实现。
+```
+class Base{
+public:
+    virtual void func() = 0;//纯虚函数
+    
+    //~Base(){
+    //    cout << "Base析构" << endl;
+    //}
+    
+    virtual ~Base(){//虚析构
+        cout << "Base虚析构" << endl;
+    }
+    //virtual ~Base() = 0;//纯虚析构
+};
+//如果父类中只声明纯虚析构而没有定义，会报错(删除父类指针时，显然要调用父类析构)
+//可以在类外定义
+Base::~Base(){
+    cout << "Base纯虚析构" << endl;
+}
+
+class A : public Base{
+public:
+    string *name;//堆区数据
+    void func(){
+        cout << "A" << endl;
+    }
+    A(string n){
+        name = new string(n);
+    }
+    ~A(){
+        if(name!=NULL)
+        {
+            cout << "A析构" << endl;
+            delete name;
+            name = NULL;
+        }
+    }
+};
+int main(){
+    Base *base = new A;
+    base->func();
+    delete base;//输出内容：Base析构
+    //没有调用子类析构函数，因为父类指针删除不会调用子类析构函数，造成内存泄漏
+    //解决方案：父类声明为虚析构或纯虚析构
+    return 0;
+}
+```
