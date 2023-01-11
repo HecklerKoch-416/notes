@@ -975,4 +975,24 @@ int main(){
  ```
  
  ## 类模板
+ ```
+ template<class NameType,class AgeType>
+ class A{
+ public:
+     NameType name;
+     AgeType age;
+     A(NameType name,AgeType age){
+         this->name = name;
+         this->age = age;
+     }
+     void show(){
+         cout << this->name << this->age << endl;
+     }
+ };
  
+ int main(){
+     A<string,int> a("hk416",24);//注意理解“类型参数化”这个概念
+     a.show();
+     return 0;
+ }
+ ```
