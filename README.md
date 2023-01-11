@@ -959,5 +959,20 @@ int main(){
  
  模板的局限性：不万能，对某些特殊的类型不通用，需要对特定数据类型提供具体操作。
  ```
+ template<class T>
+ void test(T a,T b){
+     cout << a+b << endl;
+ }
  
+ int main(){
+     int a = 1;
+     int b = 2;
+     test(a,b);//可以执行
+     int c[10]={0};
+     int d[10]={0};
+     test(c,d);//不能执行
+ }
  ```
+ 
+ ## 类模板
+ 
