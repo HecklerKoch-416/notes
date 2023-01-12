@@ -996,7 +996,8 @@ int main(){
      return 0;
  }
  ```
- 类模板和函数模板区别：1.类模板不能自动类型推导。2.类模板在参数列表中可以有默认参数。
+ ### 类模板和函数模板区别
+ 1.类模板不能自动类型推导。2.类模板在参数列表中可以有默认参数。
  ```
  template<class NameType,class AgeType = int>//默认AgeType是整型
  class A{
@@ -1016,3 +1017,45 @@ int main(){
      return 0;
  }
 ```
+ ### 类模板中成员函数创建时机
+ 类模板成员函数在调用时才创建。
+
+ ### 类模板对象作函数参数
+ 1.指定传入类型。
+ 
+ 2.参数模板化。
+ 
+ 3.整类模板化。
+ ```
+ template<class NameType,class AgeType>
+ class A{
+ public:
+     NameType name;
+     AgeType age;
+     A(NameType name,AgeType age){
+         this->name = name;
+         this->age = age;
+     }
+     void show(){
+         cout << this->name << this->age << endl;
+     }
+ };
+ void test01(A<string,int> &a){//指定传入类型
+     a.show();
+ }
+  void test01(A<NameType,AgeType> &a){//参数模板化
+     a.show();
+     cout << typeid(NameType).name() << endl;
+     cout << typeid(AgeType).name() << endl;//打印类型名称
+ }
+ template<class T>
+ void test03(T &a){//整类模板化
+     a.show();
+ }
+ int main(){
+     A<string,int> a("hk416",24);
+     test01(a);
+     test02(a);
+     return 0;
+ }
+ ```
