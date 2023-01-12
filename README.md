@@ -996,3 +996,23 @@ int main(){
      return 0;
  }
  ```
+ 类模板和函数模板区别：1.类模板不能自动类型推导。2.类模板在参数列表中可以有默认参数。
+ ```
+ template<class NameType,class AgeType = int>//默认AgeType是整型
+ class A{
+ public:
+     NameType name;
+     AgeType age;
+     A(NameType name,AgeType age){
+         this->name = name;
+         this->age = age;
+     }
+     void show(){
+         cout << this->name << this->age << endl;
+     }
+ };
+ int main(){
+     A<string> a("hk416",24);//使用默认参数
+     return 0;
+ }
+```
