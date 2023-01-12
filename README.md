@@ -1059,3 +1059,51 @@ int main(){
      return 0;
  }
  ```
+ 
+ ### 类模板与继承
+ 1.子类声明要指定父类中T的类型。(如果不指定，编译器无法为子类分配内存)
+ 
+ 2.子类可以作模板。
+ ```
+ template<class T>
+ class Base{
+ public:
+     T a;
+ };
+ 
+ class Son01 : public Base<int>{//声明T类型
+ public:  
+ };
+ 
+ template<class T1,class T2>
+ class Son02 : public Base<T1>{//子类作模板
+ public:
+     T2 a;
+ }
+ 
+ int main(){
+     Son02<int,char> s1;//父类为int型，子类为char型
+     return 0;
+ }
+ ```
+ 
+ ### 类模板成员函数类外实现
+ ```
+ template<class NameType,class AgeType>
+ class A{
+ public:
+     NameType name;
+     AgeType age;
+     A(NameType name,AgeType age){
+         this->name = name;
+         this->age = age;
+     }
+     void show();
+ };
+ //类外成员函数实现语法
+ template<class NameType,class AgeType>
+ A<class NameType,class AgeType>::show(){//注意标明模板参数列表
+ 
+ }
+ ```
+ 
