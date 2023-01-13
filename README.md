@@ -1113,3 +1113,37 @@ int main(){
  1.包含.cpp(成员函数实现)源文件。(不常用)
  
  2.将.h与.cpp(成员函数声明与实现)写到同一个.hpp文件中。(约定俗成)
+
+ ### 类模板与友元函数
+ 类内实现：直接在类内声明友元函数即可。
+ 
+ 类外实现
+ ```
+ template<class NameType,class AgeType>
+ class A;
+ //在全局函数定义前，必须让全局函数知道类模板的存在
+ //类外实现
+ template<class NameType,class AgeType>
+ void test02<>(A<NameType,AgeType> a){   //必须加上空模板参数列表
+     cout << a.name << a.age << endl;
+ }
+ 
+ template<class NameType,class AgeType>
+ class A{
+     //类内实现
+     friend void test01(A<NameType,AgeType> a){
+         cout << a.name << a.age << endl;
+     }
+     //类外实现
+     friend void test02(A<NameType,AgeType> a);//函数的声明必须在类内函数友元声明之前
+ public:
+     NameType name;
+     AgeType age;
+     A(NameType name,AgeType age){
+         this->name = name;
+         this->age = age;
+     }
+     void show();
+ };
+ 
+ ```
