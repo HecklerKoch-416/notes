@@ -1223,6 +1223,13 @@ int main(){
          v3.push_back(i+2);
      }//初始化
      v.push_back(v1);
-                           
+     v.push_back(v2);
+     v.push_back(v3);
+     for(vector<vector<int>>::iterator i = v.begin();i != v.end();i++){
+	    for(vector<int>::iterator j = i->begin();j != i->end();j++){
+	        cout << *j << " ";
+	    }
+	    cout << endl;
+	}
  }
  ```
