@@ -1150,8 +1150,35 @@ int main(){
 
  # STL标准模板库
  STL六大组件：容器、算法、迭代器、仿函数、适配器、空间配置器。(主要是前三个)
- 
  ## 容器
+ ### vector
+ vector可以理解为数组，是最常用的容器之一。
+ ```
+ #include<vector>//头文件
+ #include<algorithm>
+ void myPrint(int val){
+      cout << val << endl;
+ }
  
+ void test01(){
+     vecotr<int> v;//声明一个int型数组
+     v.push_back(10);//插入数据(尾插)
+     v.push_back(20);
+     v.push_back(30);
  
+     vector<int>::iterator iBegin = v.begin();//v.begin()指向容器中第一个元素位置
+     vector<int>::iterator iEnd = v.end();//v.end()指向容器中最后一个元素位置的下一个位置
+     //用迭代器遍历数组
+     while(iBegin != iEnd){
+         cout << *iBegin << endl;//迭代器解引用即为元素
+         iBegin++;//迭代器自增即为偏移
+     }
+     //更简单的for循环版本
+     for(vector<int>::iterator i = v.begin();i != v.End; i++){
+         cout << *i << endl;
+     }
+     //利用for_each,头文件algorithm
+     for_each(v.begin();v.end();myPrint);//myPrint是自定义函数
+ }
+ ```
  
