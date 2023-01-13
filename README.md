@@ -1181,4 +1181,48 @@ int main(){
      for_each(v.begin();v.end();myPrint);//myPrint是自定义函数
  }
  ```
+ vector存放自定义数据类型
+ ```
+ class A(){
+ public:
+     int a;
+     int b;
+     A(int a,int b){
+         this->a = a;
+         this->b = b;
+     }
+ }
  
+ void test(){
+     vector<A> v;
+     A a1(10,20);
+     A a2(100,200);
+     A a3(20,30);
+     A a4(30,40);
+     v.push_back(a1);
+     v.push_back(a2);
+     v.push_back(a3);
+     v.push_back(a4);
+     for(vector<A>::iterator i = v.begin();i != v.end();i++){
+         //cout << (*i).a << endl;
+         cout << i->a << endl;//与上一行等价
+         cout << (*i).b << endl;
+     }
+ }
+ ```
+ vector容器嵌套
+ ```
+ void test(){
+     vector<vector<int>> v;
+     vector<int> v1;
+     vector<int> v2;
+     vector<int> v3;
+     for(int i=0;i<3;++i){
+         v1.push_back(i);
+         v2.push_back(i+1);
+         v3.push_back(i+2);
+     }//初始化
+     v.push_back(v1);
+                           
+ }
+ ```
