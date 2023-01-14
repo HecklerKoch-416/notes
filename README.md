@@ -1227,9 +1227,22 @@ int main(){
      v.push_back(v3);
      for(vector<vector<int>>::iterator i = v.begin();i != v.end();i++){
 	    for(vector<int>::iterator j = i->begin();j != i->end();j++){
-	        cout << *j << " ";
+	        cout << *j << " ";//打印矩阵
 	    }
 	    cout << endl;
 	}
  }
  ```
+
+### string
+构造函数原型
+```
+//无参
+string();
+//使用字符串s初始化
+string(const char* s);
+//使用string对象初始化
+string(const string & str);
+//使用n个字符c初始化
+string(int n,char c);
+```
