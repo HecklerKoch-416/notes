@@ -1244,5 +1244,19 @@ string(const char* s);
 //使用string对象初始化
 string(const string & str);
 //使用n个字符c初始化
-string(int n,char c);
+string(int n,char c);//这个很重要！笔试惨痛经历
+
+例：创建一个长为n初始化为空字符的字符串
+string s(n,'\0');
+```
+赋值操作原型
+```
+string& operator=(const char* s);//用c风格字符串赋值
+string& operator=(const string& s);//用c++风格字符串赋值
+string& operator=(char c);
+
+string& assign(const char* s);
+string& assign(const char* s,n);//将s的前n个字符赋给当前字符串
+string& assign(const string& s);
+string& assign(int n,char c);
 ```
