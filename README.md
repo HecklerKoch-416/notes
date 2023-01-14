@@ -1260,3 +1260,15 @@ string& assign(const char* s,n);//将s的前n个字符赋给当前字符串
 string& assign(const string& s);
 string& assign(int n,char c);
 ```
+字符串拼接原型
+```
+string& operator+=(const char* s);
+string& operator+=(const char c);
+string& operator+=(const string& s);
+
+string& append(const char* s);
+string& append(const char* s,n);
+string& append(const string& s);
+string& append(int n,char c);
+```
+字符串查找替换原型
