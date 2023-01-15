@@ -1284,3 +1284,24 @@ int find(const char c,int pos = 0) const;
 string &replace(int pos,int n,const string& str);//将从pos开始的n个字符替换为str
 string &replace(int pos,int n,const char* s);	
 ```
+字符串比较
+```
+int compare(const string& s) const;
+int compare(const char* s) const;
+//按照ascii码进行比较，相等返回0，大于返回1，小于返回-1
+```	
+单个字符存取
+```
+//1.利用下标
+char& operator[](int n);
+//2.at方法
+cahr& at(int n);
+```
+插入和删除
+```
+string& insert(int pos,cosnt char* s);//插入字符串
+string& insert(int pos,cosnt string& str);
+string& insert(int pos,int n,char c);
+	
+string& erase(int pos,int n = pos);
+```
