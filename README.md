@@ -1272,3 +1272,15 @@ string& append(const string& s);
 string& append(int n,char c);
 ```
 字符串查找替换原型
+```
+int find(const string& str,int pos = 0) const;//复习：const修饰this，使类对象在函数中不可修改
+int find(const char* s,int pos = 0) const;
+int find(const char* s,int pos,int n) const;//从pos开始查找s的前n个字符第一次出现的位置
+int find(const char c,int pos = 0) const;
+//返回值下标索引从0开始；如果没有查找到，返回-1。
+
+//rfind四种重载与find相同，区别在于rfind从右往左查找
+//替换	
+string &replace(int pos,int n,const string& str);//将从pos开始的n个字符替换为str
+string &replace(int pos,int n,const char* s);	
+```
