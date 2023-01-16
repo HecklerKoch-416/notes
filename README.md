@@ -1233,7 +1233,25 @@ int main(){
 	}
  }
  ```
-
+vector构造函数
+```
+vector<T> v;
+vector(v.begin(),v.end());//拷贝区间中的元素
+vector(n,elem);
+vector(const vecotr& vec);	
+```
+赋值
+```
+vector& operator=(const vector& vec);
+assign(begin,end);
+assign(n,elem);	
+```	
+容量和大小
+```
+	
+```
+	
+	
 ### string
 构造函数原型
 ```
@@ -1305,3 +1323,7 @@ string& insert(int pos,int n,char c);
 	
 string& erase(int pos,int n = pos);
 ```
+返回子串
+```
+string& substr(int pos=0,int n = npos) const;	//返回从pos开始的n个字符组成的字符串
+```	
