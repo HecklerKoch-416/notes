@@ -1248,8 +1248,22 @@ assign(n,elem);
 ```	
 容量和大小
 ```
-	
+empty();//容器为空返回1
+capacity();//返回容量
+size();//返回元素个数
+resize(int n);//重新指定容器大小，变小则删除尾部元素，变大则以默认值填充
+resize(int n,elem);//同上，以elem填充
 ```
+插入和删除
+```
+push_back(elem);//尾部插入
+pop_back();//尾部删除
+insert(const_iterator pos,elem);//在pos插入elem
+insert(const_iterator pos,int n,elem);//从pos开始插入n个elem
+erase(const_iterator pos);//在pos删除元素
+erase(const_iterator begin,const_iterator end);//区间删除
+clear();//全部删除
+```	
 	
 	
 ### string
