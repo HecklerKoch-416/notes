@@ -1264,6 +1264,26 @@ erase(const_iterator pos);//在pos删除元素
 erase(const_iterator begin,const_iterator end);//区间删除
 clear();//全部删除
 ```	
+数据存取
+```
+//支持随机访问
+at(int dex);
+opearator[];
+front();//访问第一个
+back();//访问最后一个
+```
+互换容器
+```
+swap(vec);//交换两个容器的内容
+//利用sawp收缩内存(匿名对象)
+vector<int>(v).swap(v);
+//原理：用v已有的元素初始化匿名对象(匿名.capacity()=v.size())，然后交换v和匿名对象，语句结束后匿名对象自动释放
+```
+预留空间(减少动态开辟空间)
+```
+reserve(int len);//不能访问预留的空间
+
+```
 	
 	
 ### string
