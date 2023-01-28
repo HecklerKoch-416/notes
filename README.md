@@ -699,7 +699,7 @@ public:
     void func(){
         cout << "A" << endl;
     }
-    void func01*({
+    void func01(){
         cout << "A" << endl;
     }
 };
