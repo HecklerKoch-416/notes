@@ -1512,7 +1512,7 @@ l.sort(myCompare);//按a升序，a相同按b降序
 ```
 
 ### set
-特点：插入时自动排序，不允许有重复的树。
+特点：插入时自动排序，不允许有重复的值。
 可以包含重复数的版本：mutiset
 
 构造和赋值
@@ -1529,7 +1529,7 @@ s.swap(s1);
 ```	
 插入和删除
 ```
-insert(elem);
+insert(elem);//会返回pair<set<T>::iterator,bool>类型，可以根据insert(elem).second判断是否插入成功
 clear();
 erase(pos);
 erase(begin,end);
@@ -1539,4 +1539,18 @@ erase(elem);//按值删除
 ```
 find(key);//找到则返回元素所在位置迭代器，否则返回s.end()
 count(key);//对于set而言，结果无非是0或1;对于mutiset，可以大于1
+```
+set容器自定义排序规则
+```
+//在插入数据前就应该改变规则
+//利用仿函数
+class MyCompare{
+public:
+	bool operator()(int v1,int v2){//重载小括号运算符
+		return v1>v2;
+	}
+}
+set<int,MyCompare> s1;
+//插入数据省略
+//遍历s1,输出降序排列
 ```
