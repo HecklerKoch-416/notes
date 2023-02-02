@@ -1373,7 +1373,7 @@ deque工作原理：deque内部有中控器，维护每段缓冲区的地址，�
 	
 构造函数
 ```
-deque<T>;//默认构造
+deque<T> deq;//默认构造
 deque(begin,end);//区间构造
 deque(n,elem);//构造n个elem
 deque(const deque &deq);//拷贝构造
@@ -1441,6 +1441,56 @@ front();//返回队头
 ```
 
 ### list
+	
+构造
 ```
-
+list<T> l;//默认构造
+list(begin,end);//区间构造
+list(n,elem);//构造n个elem
+list(const list &l);//拷贝构造
+```
+赋值和交换
+```
+assign(begin,end);
+assign(n,elem);
+list& operator=(const list &l);
+swap(lst);//交换两个容器
+```	
+容量操作
+```
+size();
+empty();
+resize(num);
+resize(num,elem);
+```
+插入和删除
+```
+push_back(elem);//尾插
+push_front(elem);//头插
+pop_back();
+pop_front();
+	
+insert(pos,elem);
+insert(pos,n,elem);
+insert(pos,begin,end);
+clear();
+erase(begin,end);
+erase(pos);
+remove(elem);//删除容器中所有与elem值匹配的元素
+```	
+数据存取
+```
+front();
+back();
+```
+翻转和排序
+```
+reverse();//翻转链表
+sort();//内部成员函数算法，所有不支持随机访问迭代器的容器，内部会提供排序算法(升序)
+	
+//回调函数实现从大到小排序
+bool myCompare(int v1,int v2){
+	return v1>v2;
+}
+lst.sort(myCompare);
 ```
