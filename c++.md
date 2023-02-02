@@ -1518,7 +1518,6 @@ l.sort(myCompare);//按a升序，a相同按b降序
 构造和赋值
 ```
 set<T> s;
-s.insert(elem);
 set<T> s1 = s;//重载
 ```
 容量操作
@@ -1528,3 +1527,16 @@ s.empty();
 s.swap(s1);
 //不支持重新指定大小
 ```	
+插入和删除
+```
+insert(elem);
+clear();
+erase(pos);
+erase(begin,end);
+erase(elem);//按值删除
+```
+查找和统计
+```
+find(key);//找到则返回元素所在位置迭代器，否则返回s.end()
+count(key);//对于set而言，结果无非是0或1;对于mutiset，可以大于1
+```
