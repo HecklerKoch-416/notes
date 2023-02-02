@@ -1560,3 +1560,5 @@ set<int,MyCompare> s1;
 特点：map中所有元素都是pair<key,value>，key不允许重复，自动按key排序。可以快速根据key找到value（哈希表）。
 	
 如果想实现多个key，用mutimap
+
+所有操作均可参考set容器
