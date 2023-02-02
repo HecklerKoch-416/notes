@@ -1393,3 +1393,17 @@ deque.size();
 deque.resize(num);//重新指定大小
 deque.resize(num,elem);//重新指定大小,并以elem填充新位置
 ```
+
+插入和删除
+```
+pushe_back(elem);
+push_front(elem);
+pop_back();
+pop_front();
+insert(pos,elem);
+insert(pos,n,elem);
+insert(pos,begin,end);
+clear();//清空
+erase(begin,end);
+erase(pos);
+```
