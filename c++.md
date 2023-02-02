@@ -1553,4 +1553,10 @@ public:
 set<int,MyCompare> s1;
 //插入数据省略
 //遍历s1,输出降序排列
+//自定义数据类型排序参考list
 ```
+
+### map
+特点：map中所有元素都是pair<key,value>，key不允许重复，自动按key排序。可以快速根据key找到value（哈希表）。
+	
+如果想实现多个key，用mutimap
