@@ -1516,3 +1516,15 @@ l.sort(myCompare);//按a升序，a相同按b降序
 可以包含重复数的版本：mutiset
 
 构造和赋值
+```
+set<T> s;
+s.insert(elem);
+set<T> s1 = s;//重载
+```
+容量操作
+```
+s.size();
+s.empty();
+s.swap(s1);
+//不支持重新指定大小
+```	
