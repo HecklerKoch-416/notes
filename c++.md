@@ -1511,3 +1511,8 @@ bool myCompare(A &a1,A &a2){
 l.sort(myCompare);//按a升序，a相同按b降序
 ```
 
+### set
+特点：插入时自动排序，不允许有重复的树。
+可以包含重复数的版本：mutiset
+
+构造和赋值
