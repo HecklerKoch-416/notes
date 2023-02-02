@@ -1501,6 +1501,7 @@ struct A{
 	int b;
 }
 list<A> l;
+//填入数据省略
 bool myCompare(A &a1,A &a2){
 	if(a1.a == a2.a)
 		return a1.b > a2.b;
@@ -1508,6 +1509,4 @@ bool myCompare(A &a1,A &a2){
 		return a1.a < a2.a;
 }
 l.sort(myCompare);//按a升序，a相同按b降序
-//填入数据省略
-
 ```
