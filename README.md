@@ -1407,3 +1407,40 @@ clear();//清空
 erase(begin,end);
 erase(pos);
 ```
+
+数据访问
+```
+at(idx);
+operator[];
+front();
+back();
+```
+
+排序
+```
+sort(iterator begin,iteratorend);//区间排序,头文件algorithm
+```
+
+### stack
+常用接口
+```
+stack<T> s;//构造
+stack(const stack &s);//拷贝构造
+stack &operator=(const stack &s);
+s.push(elem);//入栈
+s.pop();//出栈
+s.top();//栈顶
+s.empty();
+s.size();
+```
+### queue
+操作基本与stack一致,只列出特殊的
+```
+back();//返回队尾
+front();//返回队头
+```
+
+### list
+```
+
+```
