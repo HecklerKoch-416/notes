@@ -1361,3 +1361,35 @@ string& erase(int pos,int n = pos);
 ```
 string& substr(int pos=0,int n = npos) const;	//返回从pos开始的n个字符组成的字符串
 ```	
+
+### deque
+双端数组，可以对两端进行插入和删除操作。
+
+deque工作原理：deque内部有中控器，维护每段缓冲区的地址，这些缓冲区中维护真实数据，使得deque像一片连续的存储空间。
+	
+缺点：访问元素效率低于vector。
+	
+优点：头部插入删除效率高，支持随机访问。
+	
+构造函数
+```
+deque<T>;//默认构造
+deque(begin,end);//区间构造
+deque(n,elem);//构造n个elem
+deque(const deque &deq);//拷贝构造
+```	
+
+赋值操作
+```
+deque& operator=(const deque& deq);//运算符重载
+assign(begin,end);//区间赋值
+assign(n,elem);
+```
+
+容量操作
+```
+deque.empty();
+deque.size();
+deque.resize(num);//重新指定大小
+deque.resize(num,elem);//重新指定大小,并以elem填充新位置
+```
