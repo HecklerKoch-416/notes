@@ -1593,3 +1593,38 @@ Add(md);//仿函数作为参数传递(qt中connect函数的第四个参数)
 定义：返回值为bool类型的仿函数。
 	
 一个参数的谓词称为一元谓词，两个参数称为二元谓词。
+
+## 内建函数对象
+### 算术仿函数
+```
+#include<functional>
+template<class T> T plus<T>;
+template<class T> T minus<T>;
+template<class T> T mutiplies<T>;
+template<class T> T divides<T>;
+template<class T> T modulus<T>;//取模
+template<class T> T negate<T>;//取反
+//使用例
+plus<int> a;
+a(1,1);//计算1+1
+negate<int> b;
+b(10);//计算-10
+```
+### 关系仿函数
+```
+template<class T> bool equal_to<T>;
+template<class T> bool not_equal_to<T>;
+template<class T> bool greater<T>;
+template<class T> bool greater_equal<T>;
+template<class T> bool less<T>;
+template<class T> bool less_equal<T>;
+//用例
+//设现有vector容器v
+srort(v.begin,v.end,greater<int>());//实现降序排列
+```
+### 逻辑仿函数
+```
+template<class T> bool logical_and<T>;	
+template<class T> bool logical_or<T>;
+template<class T> bool logical_not<T>;	
+```
