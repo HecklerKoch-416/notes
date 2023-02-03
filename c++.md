@@ -1513,7 +1513,7 @@ l.sort(myCompare);//按a升序，a相同按b降序
 
 ### set
 特点：插入时自动排序，不允许有重复的值。
-可以包含重复数的版本：mutiset
+可以包含重复数的版本：multiset
 
 构造和赋值
 ```
@@ -1559,7 +1559,7 @@ set<int,MyCompare> s1;
 ### map
 特点：map中所有元素都是pair<key,value>，key不允许重复，自动按key排序。可以快速根据key找到value（哈希表）。
 	
-如果想实现多个key，用mutimap
+如果想实现多个key，用multimap
 
 所有操作均可参考set容器
 
