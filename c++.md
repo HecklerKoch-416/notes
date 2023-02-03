@@ -1562,3 +1562,34 @@ set<int,MyCompare> s1;
 如果想实现多个key，用mutimap
 
 所有操作均可参考set容器
+
+# 函数对象
+	
+函数对象即为仿函数
+## 基本用法
+```
+class MyAdd{
+public:
+	int count;
+	int operator()(int a,int b){//重载小括号
+		count++;
+		return a+b;
+	}
+	MyAdd(){
+		count = 0;
+	}
+}
+void Add(MyAdd &md){
+	md(10,10);
+}
+MyAdd md;
+md(10,20);//像普通函数一样调用，实际上是函数对象
+md.count;//仿函数可以有自己的状态
+Add(md);//仿函数作为参数传递(qt中connect函数的第四个参数)
+```
+
+## 谓词
+
+定义：返回值为bool类型的仿函数。
+	
+一个参数的谓词称为一元谓词，两个参数称为二元谓词。
