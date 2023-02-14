@@ -97,4 +97,29 @@ void test(){
   vector<int> iterator it = find(v.begin(),v.end(),value);
 }
 ```
-问题：底层实现 *first == value 对于
+问题：底层实现 `*first == value` 对于自定义数据类型，编译器无法识别
+```
+class Person{
+public:
+    string name;
+    int age;
+    Person(string a,int b){
+        name = a;
+        age = b;
+    }
+    bool operator==(const Person& p){//重载运算符==使得编译器能够识别
+        if(this->name == p.name && this->age == p.age)
+            return true;
+           else
+            return false;
+    }
+};
+
+void test(){
+  vector<Person> v;
+  //容器加入数据忽略
+  Person p("a",1);
+  vector<int> iterator it = find(v.begin(),v.end(),p);
+  //如果不重载==运算符，会报错
+}
+```
