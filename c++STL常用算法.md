@@ -121,5 +121,9 @@ void test(){
   Person p("a",1);
   vector<int> iterator it = find(v.begin(),v.end(),p);
   //如果不重载==运算符，会报错
+  if(it == v.end())
+    cout << "查找失败" << endl;
+   else
+    cout << it->name << " " << it->age << endl;
 }
 ```
