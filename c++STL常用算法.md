@@ -124,6 +124,58 @@ void test(){
   if(it == v.end())
     cout << "查找失败" << endl;
    else
-    cout << it->name << " " << it->age << endl;
+    cout << "查找成功" << it->name << " " << it->age << endl;
+}
+```
+
+## find_if
+按条件查找
+
+原型
+```
+template<class InputIt, class UnaryPredicate>
+InputIt find_if(InputIt first, InputIt last, UnaryPredicate p)//起始迭代器，结束迭代器，bool类型函数/谓词
+{
+    for (; first != last; ++first) {
+        if (p(*first)) {
+            return first;
+        }
+    }
+    return last;
+}
+```
+
+用法
+```
+//内置数据类型省略
+//只给出自定义数据类型
+class Person{
+public:
+    string name;
+    int age;
+    Person(string a,int b){
+        name = a;
+        age = b;
+    }
+};
+
+//仿函数
+class Greater20{
+    bool operator()(Person &p){
+        if(p.age>20)
+            return true;
+        return false;
+    }
+}
+
+void test(){
+  vector<Person> v;
+  for(int i=0;i<30;i++)
+    v.push_back(i);
+  vector<int> iterator it = find(v.begin(),v.end(),Greater20());
+  if(it == v.end())
+    cout << "查找失败" << endl;
+   else
+    cout << "查找成功" << it->name << " " << it->age << endl;
 }
 ```
