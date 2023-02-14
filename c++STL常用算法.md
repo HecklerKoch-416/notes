@@ -69,3 +69,32 @@ void test(){
   transform(v1.begin(),v1.end(),v2.begin(),myTran());
 }
 ```
+
+## find
+查找
+
+原型
+```
+template<class InputIt, class T>
+InputIt find(InputIt first, InputIt last, const T& value)//起始迭代器，结束迭代器，查找的元素，返回迭代器
+{
+    for (; first != last; ++first) {
+        if (*first == value) {
+            return first;
+        }
+    }
+    return last;
+}
+```
+
+用法
+```
+void test(){
+  vector<int> v;
+  int value = 5;
+  for(int i=0;i<10;i++)
+    v.push_back(i);
+  vector<int> iterator it = find(v.begin(),v.end(),value);
+}
+```
+问题：底层实现 *first == value 对于
