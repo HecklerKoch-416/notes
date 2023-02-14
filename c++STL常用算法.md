@@ -1,4 +1,4 @@
-# 遍历
+# 常用遍历算法
 常用头文件
 ```
 #include<algorithm>
@@ -69,7 +69,7 @@ void test(){
   transform(v1.begin(),v1.end(),v2.begin(),myTran());
 }
 ```
-
+# 常用查找算法
 ## find
 查找
 
@@ -178,4 +178,102 @@ void test(){
    else
     cout << "查找成功" << it->name << " " << it->age << endl;
 }
+```
+## adjacent_find
+查找相邻重复元素
+
+原型
+```
+template<class ForwardIt>
+ForwardIt adjacent_find(ForwardIt first, ForwardIt last)//起始迭代器，结束迭代器，返回第一个重复元素的迭代器/结束迭代器
+{
+    if (first == last) {
+        return last;
+    }
+    ForwardIt next = first;
+    ++next;
+    for (; next != last; ++next, ++first) {
+        if (*first == *next) {
+            return first;
+        }
+    }
+    return last;
+}
+```
+
+## binary_search
+查找元素是否存在(二分查找,必须在有序序列中查找)
+
+原型
+```
+template<class ForwardIt, class T>
+bool binary_search(ForwardIt first, ForwardIt last, const T& value)
+{
+    first = std::lower_bound(first, last, value);//loewer_bond 返回指向首个不小于 value 的元素的迭代器，或若找不到这种元素则为 last 。
+    return (!(first == last) && !(value < *first));
+}
+```
+
+## count
+统计元素出现个数
+
+原型
+```
+template<class InputIt, class T>
+typename iterator_traits<InputIt>::difference_type
+    count(InputIt first, InputIt last, const T& value)
+{
+    typename iterator_traits<InputIt>::difference_type ret = 0;
+    for (; first != last; ++first) {
+        if (*first == value) {      //对于自定义数据类型，要重载==运算符
+            ret++;
+        }
+    }
+    return ret;
+}
+```
+
+## count_if
+条件查找
+
+原型
+```
+template<class InputIt, class UnaryPredicate>
+typename iterator_traits<InputIt>::difference_type
+    count_if(InputIt first, InputIt last, UnaryPredicate p)
+{
+    typename iterator_traits<InputIt>::difference_type ret = 0;
+    for (; first != last; ++first) {
+        if (p(*first)) {
+            ret++;
+        }
+    }
+    return ret;
+}
+```
+
+# 常用搜索算法
+## sort
+
+原型
+```
+ template<typename _RandomAccessIterator, typename _Compare>
+    inline void
+    __sort(_RandomAccessIterator __first, _RandomAccessIterator __last,
+	   _Compare __comp)//第三个参数可填可不填，默认升序，可利用谓词自行修改
+    {
+      if (__first != __last)
+	{
+	  std::__introsort_loop(__first, __last,
+				std::__lg(__last - __first) * 2,
+				__comp);
+	  std::__final_insertion_sort(__first, __last, __comp);
+	}
+    }
+```
+在functional头文件中有greater<T>仿函数
+```
+vecrot<int> v;
+//...
+sort(v.begin(),v.end(),greater<int>);//可实现降序排列    
 ```
