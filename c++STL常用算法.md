@@ -334,4 +334,18 @@ OutputIt merge(InputIt1 first1, InputIt1 last1,
 ```
 
 ## reverse
+反转
+
+```			      
+  template<typename _BidirectionalIterator>
+    inline void
+    reverse(_BidirectionalIterator __first, _BidirectionalIterator __last)
+    {
+      // concept requirements
+      __glibcxx_function_requires(_Mutable_BidirectionalIteratorConcept<
+				  _BidirectionalIterator>)
+      __glibcxx_requires_valid_range(__first, __last);
+      std::__reverse(__first, __last, std::__iterator_category(__first));
+    }
+```
 			      
