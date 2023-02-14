@@ -18,7 +18,7 @@ UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f)
     }
     return f; // C++11 起隐式移动
 }
-//其中first是容器开头的迭代器，last是容器结尾的迭代器，f是仿函数
+//其中first是容器开头的迭代器，last是容器结尾的迭代器，f是仿函数/函数
 ```
 用法
 ```
@@ -43,7 +43,7 @@ void test(){
 ```
 template<class InputIt, class OutputIt, class UnaryOperation>
 OutputIt transform(InputIt first1, InputIt last1, OutputIt d_first, 
-                   UnaryOperation unary_op)//第一个容器的起始迭代器，第一个容器的结束迭代器，第二个容器的起始迭代器，仿函数
+                   UnaryOperation unary_op)//第一个容器的起始迭代器，第一个容器的结束迭代器，第二个容器的起始迭代器，仿函数/函数
 {
     while (first1 != last1) {
         *d_first++ = unary_op(*first1++);
@@ -277,3 +277,61 @@ vecrot<int> v;
 //...
 sort(v.begin(),v.end(),greater<int>);//可实现降序排列    
 ```
+
+## random_shuffle
+随机打乱
+
+```
+//不提供仿函数接口
+template< class RandomIt >
+void random_shuffle( RandomIt first, RandomIt last )
+{
+    typename std::iterator_traits<RandomIt>::difference_type i, n;
+    n = last - first;
+    for (i = n-1; i > 0; --i) {
+        using std::swap;
+        swap(first[i], first[std::rand() % (i+1)]);//想要每次打乱顺序都不同，用srand()提供种子
+        // rand() % (i+1) 实际上不准确，因为生成的数对于多数 i 值不均匀分布。
+        // 正确实现将实际上需要重新实现 C++11 std::uniform_distributtion ，
+        // 这超出了此示例的范畴。
+    }
+}
+//提供仿函数接口	
+template<class RandomIt, class RandomFunc>
+void random_shuffle(RandomIt first, RandomIt last, RandomFunc&& r)
+{
+    typename std::iterator_traits<RandomIt>::difference_type i, n;
+    n = last - first;
+    for (i = n-1; i > 0; --i) {
+        using std::swap;
+        swap(first[i], first[r(i+1)]);
+    }
+}	
+```	
+	
+## merge
+合并容器(有序)
+```
+template<class InputIt1, class InputIt2, class OutputIt>
+OutputIt merge(InputIt1 first1, InputIt1 last1,
+               InputIt2 first2, InputIt2 last2,
+               OutputIt d_first)//第一个容器起始、结束，第二个容器起始、结束，目标容器起始迭代器
+{				//要提前给目标容器分配足够的存储空间
+    for (; first1 != last1; ++d_first) {
+        if (first2 == last2) {
+            return std::copy(first1, last1, d_first);
+        }
+        if (*first2 < *first1) {
+            *d_first = *first2;
+            ++first2;
+        } else {
+            *d_first = *first1;
+            ++first1;
+        }
+    }
+    return std::copy(first2, last2, d_first);
+}	
+```
+
+## reverse
+			      
