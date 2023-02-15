@@ -410,3 +410,57 @@ template< class T >
 constexpr void swap( T& a, T& b ) noexcept(/* see below */);	
 //该关键字告诉编译器，函数中不会发生异常,这有利于编译器对程序做更多的优化。
 ```
+
+# 常用算术算法
+## accumulate
+计算元素累加和
+```
+template<class InputIt, class T>
+constexpr // C++20 起
+T accumulate(InputIt first, InputIt last, T init)//参数3是起始累加值
+{
+    for (; first != last; ++first) {
+        init = std::move(init) + *first; // C++20 起有 std::move
+    }
+    return init;
+}	
+```
+## fill
+指定区间填充
+```
+template< class ForwardIt, class T >
+void fill(ForwardIt first, ForwardIt last, const T& value)//注意提前分配内存
+{
+    for (; first != last; ++first) {
+        *first = value;
+    }
+}	
+```	
+
+# 常用集合算法
+## set_intersection
+求两个集合交集
+```
+template< class InputIt1, class InputIt2, class OutputIt >
+OutputIt set_intersection( InputIt1 first1, InputIt1 last1,
+                           InputIt2 first2, InputIt2 last2,
+                           OutputIt d_first );	
+```
+
+## set_union
+求两个集合并集
+
+```
+template< class InputIt1, class InputIt2, class OutputIt >
+OutputIt set_union( InputIt1 first1, InputIt1 last1,
+                    InputIt2 first2, InputIt2 last2,
+                    OutputIt d_first );	
+```
+# set_difference
+求两个集合差集
+```
+template< class InputIt1, class InputIt2, class OutputIt >
+OutputIt set_difference( InputIt1 first1, InputIt1 last1,
+                         InputIt2 first2, InputIt2 last2,
+                         OutputIt d_first );	
+```
