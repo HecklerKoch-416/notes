@@ -349,3 +349,64 @@ OutputIt merge(InputIt1 first1, InputIt1 last1,
     }
 ```
 			      
+# 常用拷贝和替换算法
+## copy
+```
+template<class InputIt, class OutputIt>
+OutputIt copy(InputIt first, InputIt last, 
+              OutputIt d_first)	//提前开辟空间
+{
+    while (first != last) {
+        *d_first++ = *first++;
+    }
+    return d_first;
+}	
+```
+## copy_if
+```
+template<class InputIt, class OutputIt, class UnaryPredicate>
+OutputIt copy_if(InputIt first, InputIt last, 
+                 OutputIt d_first, UnaryPredicate pred)//提前开辟空间
+{
+    while (first != last) {
+        if (pred(*first))
+            *d_first++ = *first;
+        ++first;
+    }
+    return d_first;
+}	
+```
+## replace
+```
+template<class ForwardIt, class T>
+void replace(ForwardIt first, ForwardIt last,
+             const T& old_value, const T& new_value)
+{
+    for (; first != last; ++first) {
+        if (*first == old_value) {//注意重载运算符
+            *first = new_value;
+        }
+    }
+}	
+```
+## replace_if
+```
+template<class ForwardIt, class UnaryPredicate, class T>
+void replace_if(ForwardIt first, ForwardIt last,
+                UnaryPredicate p, const T& new_value)
+{
+    for (; first != last; ++first) {
+        if(p(*first)) {
+            *first = new_value;
+        }
+    }
+}	
+```
+## swap
+交换两个容器
+	
+```
+template< class T >
+constexpr void swap( T& a, T& b ) noexcept(/* see below */);	
+//该关键字告诉编译器，函数中不会发生异常,这有利于编译器对程序做更多的优化。
+```
