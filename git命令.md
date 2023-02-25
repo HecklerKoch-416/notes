@@ -14,16 +14,7 @@ git branch -M main
 git remote add origin "https://github.com/HecklerKoch-416/notes.git"
 # 本地仓库推送到远程仓库
 git push -u origin main
-
 ```
-
-
-
-
-
-
-
-
 
 # 基础概念
 
