@@ -1,3 +1,30 @@
+# 最常用指令
+
+```
+# 上传
+# 第一次创建
+git init
+# 上传所有文件到暂存区
+git add .
+# 提交到git仓库
+git commit -m "更新"
+# 上传到main分支
+git branch -M main
+# 和远程仓库连接
+git remote add origin "https://github.com/HecklerKoch-416/notes.git"
+# 本地仓库推送到远程仓库
+git push -u origin main
+
+```
+
+
+
+
+
+
+
+
+
 # 基础概念
 
 工作区：就是你在电脑里能看到的目录。
