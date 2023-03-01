@@ -1,6 +1,6 @@
 # 最常用指令
 
-```
+```git
 # 上传
 # 第一次创建
 git init
@@ -17,6 +17,20 @@ git push -u origin main
 # 更新远程库和本地库
 git pull --rebase origin main
 ```
+
+```git
+#自用
+git add .
+git commit -m "更新"
+git branch -M main
+git push -u origin main
+```
+
+
+
+
+
+
 
 # 基础概念
 
