@@ -34,8 +34,6 @@
    
    fastcgi启动后处于循环状态，有请求则处理，没有请求则阻塞。
 
-
-
 # fastcgi安装
 
 先安装spawn-fcgi，这是fastcgi的进程管理器。
@@ -52,15 +50,11 @@ fastcgi在make的时候报错
 
 打开这个文件，加上头文件即可。
 
-
-
 # nginx+fastcgi
 
 nginx扮演web服务器角色
 
 ![](assets/分布式文件服务器04_fastcgi/2023-03-01-15-16-54-image.png)
-
-
 
 修改nginx配置文件：
 
@@ -73,16 +67,12 @@ fastcgi_pass ip:port;    #转发到
 include fastcgi.conf;    #包含配置文件
 ```
 
-
-
 启动spawn-fcgi
 
 ```
 spawn-fcgi -a ip -p port -f ./执行程序
 #ip和port要与nginx中配置的相同，注意localhost对应127.0.0.1
 ```
-
-
 
 fastcgi程序编写
 
@@ -117,11 +107,11 @@ int main(){
         //将结果发送给nginx
         //声明返回结果的格式，即Content-type
         printf("Content-type: text/html\r\n"
-	    "\r\n"
-	    "<title>FastCGI echo</title>"
-	    "<h1>FastCGI echo</h1>\n"
+        "\r\n"
+        "<title>FastCGI echo</title>"
+        "<h1>FastCGI echo</h1>\n"
             "Request number %d,  Process ID: %d<p>\n", ++count, getpid());
-        
+
     }
 
 
@@ -208,3 +198,42 @@ spawn-fcgi -a 127.0.0.1 -p 9999 -f ./app
 ![](assets/分布式文件服务器04_fastcgi/2023-03-01-22-36-55-image.png)
 
 fastcgi把接受的内容原封不动地发回了nginx。
+
+# 常用环境变量
+
+在上面的fcgi程序中，我们用到了一些环境变量
+
+![](assets/分布式文件服务器04_fastcgi/2023-03-03-14-05-17-image.png)
+
+这些常用的环境变量需要了解：
+
+```
+QUERY_STRING    请求的参数，即请求行第二部分
+REQUEST_METHOD    请求的动作 GET/POST
+CONTENT_TYPE    请求报文第四部分，即正文的数据格式 jpg/txt......
+CONTENT_LENGTH    正文长度
+```
+
+# 总结
+
+1. fastcgi是什么？
+   
+   是快速通用网络接口。
+
+2. 是干什么的？
+   
+   帮助用户处理客户端请求。
+
+3. 怎么用？
+   
+   nginx转发数据：修改nginx.conf，在location模块利用fastcgi_pass指定转发ip和端口。
+   
+   fastcgi接受数据：启动spawn-fcgi，指定正确的ip和端口，启动编译好的fastcgi程序。在程序中，调用读/写终端函数，来接受和发送数据。
+   
+   fastcgi处理数据：利用环境变量获取信息，处理数据，回发数据用printf，数据会被重定向到nginx服务器。
+
+# 服务器文件上传/下载流程
+
+![](assets/分布式文件服务器04_fastcgi/2023-03-04-15-09-13-image.png)
+
+![](assets/分布式文件服务器04_fastcgi/2023-03-05-08-26-35-image.png)
