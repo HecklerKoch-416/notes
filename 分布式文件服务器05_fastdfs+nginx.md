@@ -203,8 +203,6 @@ location /group1/M00/ {
 
 ctrl+s即可保存到本地。
 
-
-
 # 文件上传/下载流程
 
 ## 上传
@@ -221,22 +219,12 @@ ctrl+s即可保存到本地。
 
 6. fastcgi将存储信息写入数据库。
    
-   
-   
-   
-   
    ![](assets/分布式文件服务器05_fastdfs+nginx/2023-03-05-20-15-44-image.png)
 
-##快速 下载
+## 快速下载
 
 1. 客户端直接连接fastDFS存储节点，在存储节点主机上安装nginx+fastdfs插件，由nginx解析url，转发给同一台主机上的fastdfs，从而实现快速下载。
 
 2. 在文件上传时，将fileID和存储节点的ip都进行存储，从而知道文件和存储节点的对应关系(配置location)。
    
    ![](assets/分布式文件服务器05_fastdfs+nginx/2023-03-05-20-22-00-image.png)
-   
-   
-
-
-
-

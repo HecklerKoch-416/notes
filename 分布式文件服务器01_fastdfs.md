@@ -27,7 +27,7 @@ bind-addr填入192.168.223.130
 
 第22行base_path是给追踪器准备的日志目录，存储日志文件和pid文件（储存追踪器的pid）。目前这个目录并不存在，我们需要创建一个。
 
-```
+```shell
 #自行选择路径
 cd /home/hk416
 mkdir fastdfs
@@ -74,7 +74,7 @@ base_path 修改为 /home/hk416/fastdfs/client
 
 注意，用户要对该路径有读写权限。
 
-```
+```she
 给所有用户加上写权限
 sudo chmod a+w client
 ```
@@ -163,7 +163,7 @@ group1/M00/00/00/wKjfgmP6EMeAGldBAAAAEx6MsD0359.txt
 
 ## fdfs状态检测
 
-```
+```shell
 # 查看
 fdfs_monitor /etc/fdfs/client.conf
 # 从集群中删除错误存储节点
@@ -180,7 +180,7 @@ fdfs_monitor /etc/fdfs/client.conf delete <组名+ip>
 
 fdfs_upload_file.c
 
-```
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -326,7 +326,7 @@ int upload_file2(const char* confFile, const char* upload_file, char *fileID, in
 
 新建一份fdfs_upload_file.h
 
-```
+```c
 #ifndef _FDFS_UPLOAD_FILE_H
 #define _FDFS_UPLOAD_FILE_H
 
@@ -338,7 +338,7 @@ int upload_file2(const char* confFile, const char* upload_file, char *fileID, in
 
 再写一个测试程序
 
-```
+```c
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>

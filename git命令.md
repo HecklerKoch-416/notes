@@ -26,12 +26,6 @@ git branch -M main
 git push -u origin main
 ```
 
-
-
-
-
-
-
 # 基础概念
 
 工作区：就是你在电脑里能看到的目录。

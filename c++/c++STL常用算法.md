@@ -1,14 +1,19 @@
 # 常用遍历算法
+
 常用头文件
+
 ```
 #include<algorithm>
 #include<numeric>
 #include<functional>
 ```
+
 ## for_each
+
 遍历容器
 
 原型
+
 ```
 template<class InputIt, class UnaryFunction>
 UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f)
@@ -20,7 +25,9 @@ UnaryFunction for_each(InputIt first, InputIt last, UnaryFunction f)
 }
 //其中first是容器开头的迭代器，last是容器结尾的迭代器，f是仿函数/函数
 ```
+
 用法
+
 ```
 class myFunc{
 public:
@@ -37,9 +44,11 @@ void test(){
 ```
 
 ## transform
+
 搬运容器
 
 原型
+
 ```
 template<class InputIt, class OutputIt, class UnaryOperation>
 OutputIt transform(InputIt first1, InputIt last1, OutputIt d_first, 
@@ -51,7 +60,9 @@ OutputIt transform(InputIt first1, InputIt last1, OutputIt d_first,
     return d_first;
 }
 ```
+
 用法
+
 ```
 class myTran{
 public:
@@ -69,11 +80,15 @@ void test(){
   transform(v1.begin(),v1.end(),v2.begin(),myTran());
 }
 ```
+
 # 常用查找算法
+
 ## find
+
 查找
 
 原型
+
 ```
 template<class InputIt, class T>
 InputIt find(InputIt first, InputIt last, const T& value)//起始迭代器，结束迭代器，查找的元素，返回迭代器
@@ -88,6 +103,7 @@ InputIt find(InputIt first, InputIt last, const T& value)//起始迭代器，结
 ```
 
 用法
+
 ```
 void test(){
   vector<int> v;
@@ -97,7 +113,9 @@ void test(){
   vector<int> iterator it = find(v.begin(),v.end(),value);
 }
 ```
+
 问题：底层实现 `*first == value` 对于自定义数据类型，编译器无法识别
+
 ```
 class Person{
 public:
@@ -129,9 +147,11 @@ void test(){
 ```
 
 ## find_if
+
 按条件查找
 
 原型
+
 ```
 template<class InputIt, class UnaryPredicate>
 InputIt find_if(InputIt first, InputIt last, UnaryPredicate p)//起始迭代器，结束迭代器，bool类型函数/谓词
@@ -146,6 +166,7 @@ InputIt find_if(InputIt first, InputIt last, UnaryPredicate p)//起始迭代器�
 ```
 
 用法
+
 ```
 //内置数据类型省略
 //只给出自定义数据类型
@@ -179,10 +200,13 @@ void test(){
     cout << "查找成功" << it->name << " " << it->age << endl;
 }
 ```
+
 ## adjacent_find
+
 查找相邻重复元素
 
 原型
+
 ```
 template<class ForwardIt>
 ForwardIt adjacent_find(ForwardIt first, ForwardIt last)//起始迭代器，结束迭代器，返回第一个重复元素的迭代器/结束迭代器
@@ -202,9 +226,11 @@ ForwardIt adjacent_find(ForwardIt first, ForwardIt last)//起始迭代器，结�
 ```
 
 ## binary_search
+
 查找元素是否存在(二分查找,必须在有序序列中查找)
 
 原型
+
 ```
 template<class ForwardIt, class T>
 bool binary_search(ForwardIt first, ForwardIt last, const T& value)
@@ -215,9 +241,11 @@ bool binary_search(ForwardIt first, ForwardIt last, const T& value)
 ```
 
 ## count
+
 统计元素出现个数
 
 原型
+
 ```
 template<class InputIt, class T>
 typename iterator_traits<InputIt>::difference_type
@@ -234,9 +262,11 @@ typename iterator_traits<InputIt>::difference_type
 ```
 
 ## count_if
+
 条件查找
 
 原型
+
 ```
 template<class InputIt, class UnaryPredicate>
 typename iterator_traits<InputIt>::difference_type
@@ -253,25 +283,29 @@ typename iterator_traits<InputIt>::difference_type
 ```
 
 # 常用搜索算法
+
 ## sort
 
 原型
+
 ```
  template<typename _RandomAccessIterator, typename _Compare>
     inline void
     __sort(_RandomAccessIterator __first, _RandomAccessIterator __last,
-	   _Compare __comp)//第三个参数可填可不填，默认升序，可利用谓词自行修改
+       _Compare __comp)//第三个参数可填可不填，默认升序，可利用谓词自行修改
     {
       if (__first != __last)
-	{
-	  std::__introsort_loop(__first, __last,
-				std::__lg(__last - __first) * 2,
-				__comp);
-	  std::__final_insertion_sort(__first, __last, __comp);
-	}
+    {
+      std::__introsort_loop(__first, __last,
+                std::__lg(__last - __first) * 2,
+                __comp);
+      std::__final_insertion_sort(__first, __last, __comp);
+    }
     }
 ```
+
 在functional头文件中有greater<T>仿函数
+
 ```
 vecrot<int> v;
 //...
@@ -279,6 +313,7 @@ sort(v.begin(),v.end(),greater<int>);//可实现降序排列
 ```
 
 ## random_shuffle
+
 随机打乱
 
 ```
@@ -296,7 +331,7 @@ void random_shuffle( RandomIt first, RandomIt last )
         // 这超出了此示例的范畴。
     }
 }
-//提供仿函数接口	
+//提供仿函数接口    
 template<class RandomIt, class RandomFunc>
 void random_shuffle(RandomIt first, RandomIt last, RandomFunc&& r)
 {
@@ -306,17 +341,19 @@ void random_shuffle(RandomIt first, RandomIt last, RandomFunc&& r)
         using std::swap;
         swap(first[i], first[r(i+1)]);
     }
-}	
-```	
-	
+}    
+```
+
 ## merge
+
 合并容器(有序)
+
 ```
 template<class InputIt1, class InputIt2, class OutputIt>
 OutputIt merge(InputIt1 first1, InputIt1 last1,
                InputIt2 first2, InputIt2 last2,
                OutputIt d_first)//第一个容器起始、结束，第二个容器起始、结束，目标容器起始迭代器
-{				//要提前给目标容器分配足够的存储空间
+{                //要提前给目标容器分配足够的存储空间
     for (; first1 != last1; ++d_first) {
         if (first2 == last2) {
             return std::copy(first1, last1, d_first);
@@ -330,39 +367,44 @@ OutputIt merge(InputIt1 first1, InputIt1 last1,
         }
     }
     return std::copy(first2, last2, d_first);
-}	
+}    
 ```
 
 ## reverse
+
 反转
 
-```			      
+```
   template<typename _BidirectionalIterator>
     inline void
     reverse(_BidirectionalIterator __first, _BidirectionalIterator __last)
     {
       // concept requirements
       __glibcxx_function_requires(_Mutable_BidirectionalIteratorConcept<
-				  _BidirectionalIterator>)
+                  _BidirectionalIterator>)
       __glibcxx_requires_valid_range(__first, __last);
       std::__reverse(__first, __last, std::__iterator_category(__first));
     }
 ```
-			      
+
 # 常用拷贝和替换算法
+
 ## copy
+
 ```
 template<class InputIt, class OutputIt>
 OutputIt copy(InputIt first, InputIt last, 
-              OutputIt d_first)	//提前开辟空间
+              OutputIt d_first)    //提前开辟空间
 {
     while (first != last) {
         *d_first++ = *first++;
     }
     return d_first;
-}	
+}    
 ```
+
 ## copy_if
+
 ```
 template<class InputIt, class OutputIt, class UnaryPredicate>
 OutputIt copy_if(InputIt first, InputIt last, 
@@ -374,9 +416,11 @@ OutputIt copy_if(InputIt first, InputIt last,
         ++first;
     }
     return d_first;
-}	
+}    
 ```
+
 ## replace
+
 ```
 template<class ForwardIt, class T>
 void replace(ForwardIt first, ForwardIt last,
@@ -387,9 +431,11 @@ void replace(ForwardIt first, ForwardIt last,
             *first = new_value;
         }
     }
-}	
+}    
 ```
+
 ## replace_if
+
 ```
 template<class ForwardIt, class UnaryPredicate, class T>
 void replace_if(ForwardIt first, ForwardIt last,
@@ -400,20 +446,25 @@ void replace_if(ForwardIt first, ForwardIt last,
             *first = new_value;
         }
     }
-}	
+}    
 ```
+
 ## swap
+
 交换两个容器
-	
+
 ```
 template< class T >
-constexpr void swap( T& a, T& b ) noexcept(/* see below */);	
+constexpr void swap( T& a, T& b ) noexcept(/* see below */);    
 //该关键字告诉编译器，函数中不会发生异常,这有利于编译器对程序做更多的优化。
 ```
 
 # 常用算术算法
+
 ## accumulate
+
 计算元素累加和
+
 ```
 template<class InputIt, class T>
 constexpr // C++20 起
@@ -423,10 +474,13 @@ T accumulate(InputIt first, InputIt last, T init)//参数3是起始累加值
         init = std::move(init) + *first; // C++20 起有 std::move
     }
     return init;
-}	
+}    
 ```
+
 ## fill
+
 指定区间填充
+
 ```
 template< class ForwardIt, class T >
 void fill(ForwardIt first, ForwardIt last, const T& value)//注意提前分配内存
@@ -434,33 +488,40 @@ void fill(ForwardIt first, ForwardIt last, const T& value)//注意提前分配�
     for (; first != last; ++first) {
         *first = value;
     }
-}	
-```	
+}    
+```
 
 # 常用集合算法
+
 ## set_intersection
+
 求两个集合交集
+
 ```
 template< class InputIt1, class InputIt2, class OutputIt >
 OutputIt set_intersection( InputIt1 first1, InputIt1 last1,
                            InputIt2 first2, InputIt2 last2,
-                           OutputIt d_first );	
+                           OutputIt d_first );    
 ```
 
 ## set_union
+
 求两个集合并集
 
 ```
 template< class InputIt1, class InputIt2, class OutputIt >
 OutputIt set_union( InputIt1 first1, InputIt1 last1,
                     InputIt2 first2, InputIt2 last2,
-                    OutputIt d_first );	
+                    OutputIt d_first );    
 ```
+
 # set_difference
+
 求两个集合差集
+
 ```
 template< class InputIt1, class InputIt2, class OutputIt >
 OutputIt set_difference( InputIt1 first1, InputIt1 last1,
                          InputIt2 first2, InputIt2 last2,
-                         OutputIt d_first );	
+                         OutputIt d_first );    
 ```

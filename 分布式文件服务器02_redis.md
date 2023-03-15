@@ -375,20 +375,20 @@ aof更新频率
 
 连接服务器
 
-```
+```c
 redisContext *redisConnect(const char *ip, int port);
 redisContext *redisConnectWithTimeout(const char *ip, int port, const struct timeval tv);
 ```
 
 执行命令
 
-```
+```c
 void *redisCommand(redisContext *c, const char *format, ...);
 ```
 
 返回值是void* 类型，但是接受的reply是redisReply类型的结构体指针。
 
-```
+```c
 /* This is the reply object returned by redisCommand() */
 typedef struct redisReply { 
     int type; /* REDIS_REPLY_* */
@@ -402,12 +402,12 @@ typedef struct redisReply {
 
 释放资源
 
-```
+```c
 void freeReplyObject(void *reply);
 void redisFree(redisContext *c);
 ```
 
-```
+```c
 /* Context for a connection to Redis */
 typedef struct redisContext {
     int err; /* Error flags, 0 when there is no error */
@@ -435,7 +435,7 @@ typedef struct redisContext {
 
 一个简单用例：
 
-```
+```c
 #include<stdio.h>
 #include<hiredis.h>
 
