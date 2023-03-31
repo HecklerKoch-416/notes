@@ -12,8 +12,6 @@
 
 返回值是SOCKET类型。
 
-
-
 ## bind(SOCKET s, const struct sockaddr FAR * name, int namelen)
 
 绑定套接字地址和前面创建的套接字号。
@@ -35,8 +33,6 @@ addr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
 
 第三个参数是第二个参数长度。
 
-
-
 ## listen(SOCKET sock, int backlog)
 
 监听套接字，将套接字转换为被动监听状态。
@@ -44,9 +40,3 @@ addr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
 第一个参数是套接字，第二个参数是请求队列最大长度。
 
 成功返回0，失败返回-1.
-
-
-
-
-
-

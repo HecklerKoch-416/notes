@@ -1757,7 +1757,7 @@ template<class T> bool less<T>;
 template<class T> bool less_equal<T>;
 //用例
 //设现有vector容器v
-srort(v.begin,v.end,greater<int>());//实现降序排列
+sort(v.begin,v.end,greater<int>());//实现降序排列
 ```
 
 ### 逻辑仿函数
